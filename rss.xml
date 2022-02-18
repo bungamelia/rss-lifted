@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lifted</title>
+    <link>{{ siteUrl }}</link>
+    <description>The {{ "Latest from Lifted"|t }}</description>
+    <atom:link href="{{ siteUrl }}rss.xml" rel="self" type="application/rss+xml" />
+
+    {% for entry in craft.entries().section(['article','immersiveArticle','feature']).parentFeature(':empty:').limit(80) %}
+      <item>
+        <title>{{ entry.title }}</title>
+        <guid>{{ entry.url }}</guid>
+        <link>{{ entry.url }}</link>
+        <pubDate>{{ entry.postDate.rss }}</pubDate>
+        <description><![CDATA[{% if entry.image[0] %}<p><img src="{{ entry.image[0].getUrl('twoThirds') }}"></p>{% endif %}<p>{{ entry.standfirst }}</p><p><a href="{{ entry.url }}">Continue reading...</a></p>]]></description>
+      </item>
+    {% endfor %}
+
+
+  </channel>
+</rss>
